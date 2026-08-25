@@ -27,6 +27,7 @@
         "firebase": "^12.17.1",
         "heic2any": "^0.0.4",
         "qrcode.vue": "^3.10.0",
-        "sweetalert2": "^11.26.25"
+        "sweetalert2": "^11.26.25",
+        "ziggy-js": "^2.6.4"
     }
 }
