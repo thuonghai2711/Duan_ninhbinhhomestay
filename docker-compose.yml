@@ -1,0 +1,47 @@
+services:
+  app:
+    build: .
+    container_name: nbhomestay-app
+    ports:
+      - "8000:80"
+    environment:
+      APP_NAME: Ninh Binh HomeStay
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: datn
+      DB_USERNAME: datn
+      DB_PASSWORD: datn_secret
+      FILESYSTEM_DISK: public
+    depends_on:
+      mysql:
+        condition: service_healthy
+    volumes:
+      - uploads:/var/www/html/storage/app/public
+
+  mysql:
+    image: mariadb:11
+    container_name: nbhomestay-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: datn
+      MYSQL_USER: datn
+      MYSQL_PASSWORD: datn_secret
+      MYSQL_ROOT_PASSWORD: root_secret
+    volumes:
+      - dbdata:/var/lib/mysql
+      # Tự nạp dữ liệu mẫu (chỉ chạy lần đầu khi volume trống)
+      - ./docker/mysql-init/01-dump.sql:/docker-entrypoint-initdb.d/01-dump.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-udatn", "-pdatn_secret"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+volumes:
+  dbdata:
+  uploads:
