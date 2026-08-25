@@ -1,3 +1,6 @@
+# ---------- Composer (dùng để cài dependencies PHP ở stage runtime) ----------
+FROM composer:2 AS composer
+
 # ---------- Giai đoạn 1: Build frontend (Vite) ----------
 FROM node:20-alpine AS frontend
 WORKDIR /app
@@ -17,6 +20,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && docker-php-ext-install -j"$(nproc)" \
         pdo_mysql bcmath exif gd intl zip \
     && rm -rf /var/lib/apt/lists/*
+
+# Cài Composer (lấy từ stage 'composer' phía trên)
+COPY --from=composer /usr/bin/composer /usr/local/bin/composer
 
 # Bật mod Apache + trỏ DocumentRoot vào /public (Laravel)
 RUN a2enmod rewrite headers
