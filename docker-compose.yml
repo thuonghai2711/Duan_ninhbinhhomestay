@@ -37,7 +37,7 @@ services:
       # Tự nạp dữ liệu mẫu (chỉ chạy lần đầu khi volume trống)
       - ./docker/mysql-init/01-dump.sql:/docker-entrypoint-initdb.d/01-dump.sql:ro
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-udatn", "-pdatn_secret"]
+      test: ["CMD", "mariadb-admin", "ping", "-h", "localhost", "-udatn", "-pdatn_secret"]
       interval: 5s
       timeout: 5s
       start_period: 30s
