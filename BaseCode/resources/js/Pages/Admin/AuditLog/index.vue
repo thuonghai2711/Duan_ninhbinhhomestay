@@ -15,7 +15,7 @@ const typeFilter = ref(props.filters?.type || "all");
 //hàm gửi request lọc dữ liệu
 function handleFilter() {
     router.get(
-        route("admin.auditlog.index"),
+        route("admin.auditlog"),
         {
             search: search.value,
             type: typeFilter.value,

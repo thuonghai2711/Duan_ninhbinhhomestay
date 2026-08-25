@@ -59,7 +59,7 @@ const handleWaterImg = (e) => {
 
 const submitEntryReadings = () => {
     entryForm.post(
-        route("profile.contract.submit-entry-readings", props.contract.hash_id),
+        route("profile.entry-readings.submit", props.contract.id),
         {
             forceFormData: true,
             onSuccess: () => {
