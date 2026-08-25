@@ -1,26 +1,31 @@
-.git
-.gitignore
-*.md
-README.md
-HUONG_DAN_HOP_DONG.md
-manhdung.md
-.vscode
-.idea
-vendor
-node_modules
-BaseCode/vendor
+# Node modules (npm ci sẽ tự cài lại trong image)
 BaseCode/node_modules
-public/build
-BaseCode/public/build
+node_modules
+
+# Lưu ý: KHÔNG loại BaseCode/vendor — stage frontend cần file
+# vendor/tightenco/ziggy/js/ziggy.js để Vite build thành công.
+# (Re-include "!..." sau khi exclude thư mục cha không hoạt động trên
+#  một số phiên bản Docker cũ.)
+
+# Cache & log
+*.log
 storage/logs/*
-BaseCode/storage/logs/*
-BaseCode/storage/framework/cache/data/*
-BaseCode/storage/framework/sessions/*
-BaseCode/storage/framework/views/*
-.env
-BaseCode/.env
-BaseCode/.env.*
-!BaseCode/.env.example
-docker-compose.yml
+!storage/logs/.gitignore
+storage/framework/cache/data/*
+!storage/framework/cache/data/.gitignore
+storage/framework/sessions/*
+!storage/framework/sessions/.gitignore
+storage/framework/views/*
+!storage/framework/views/.gitignore
+bootstrap/cache/*.php
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Docker
 Dockerfile
+docker-compose.yml
 .dockerignore
